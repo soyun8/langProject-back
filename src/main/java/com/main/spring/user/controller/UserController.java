@@ -65,7 +65,7 @@ public class UserController {
 
 	 // user 회원가입
     @PostMapping("/join")
-    public String userJoin (UserRequestSaveDTO userRequestDTO) {
+    public  @ResponseBody String userJoin (UserRequestSaveDTO userRequestDTO) {
         log.info("=====회원가입====="+userRequestDTO);
         User user = this.userService.userJoin(userRequestDTO);
         ResponseEntity.ok(user);

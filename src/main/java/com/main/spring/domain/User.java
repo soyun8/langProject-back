@@ -1,5 +1,10 @@
 package com.main.spring.domain;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +15,6 @@ import javax.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -41,6 +44,14 @@ public class User extends AuditingEntity{
     private String providerId;
 	
     private String provider;
+    
+    // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
+    public List<String> getRoleList(){
+        if(this.role.length() > 0){
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 
 	@Builder
 	public User(String username, String password, String email, String name, int age, String provider, String providerId, String role, LocalDateTime createDate) {

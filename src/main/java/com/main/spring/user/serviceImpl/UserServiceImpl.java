@@ -9,7 +9,9 @@ import com.main.spring.user.repository.UserRepository;
 import com.main.spring.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userJoin(UserRequestSaveDTO userRequestDTO) {
         String password = bCryptPasswordEncoder.encode(userRequestDTO.getPassword());
+        log.info("=====왜 안와====",password);
         userRequestDTO.setRole("ROLE_USER");
         userRequestDTO.setProvider("사이트 가입자");
         userRequestDTO.setPassword(password);
