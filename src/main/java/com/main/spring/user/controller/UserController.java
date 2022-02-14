@@ -58,11 +58,6 @@ public class UserController {
 		return "joinForm";
 	}
 
-	@GetMapping("/login")
-	public @ResponseBody String login() {
-		return "login";
-	}
-
 	 // user 회원가입
     @PostMapping("/join")
     public  @ResponseBody String userJoin (UserRequestSaveDTO userRequestDTO) {

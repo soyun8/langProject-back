@@ -1,6 +1,5 @@
 package com.main.spring.config.auth;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,8 +29,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 	 * 결론 : 시큐리티 세션(내부 Authentication(내부 UserDetails))
 	 * */
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

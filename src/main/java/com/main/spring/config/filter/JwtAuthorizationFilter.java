@@ -19,6 +19,9 @@ import com.main.spring.config.auth.PrincipalDetails;
 import com.main.spring.domain.User;
 import com.main.spring.user.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
 	private UserRepository userRepository;
@@ -32,10 +35,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		System.out.println("인증/권한 필요");
+		log.info("인증/권한 필요");
 
 		String jwtHeader = request.getHeader("Authorization");
-		System.out.println("jwtHeader : "+jwtHeader);
+		log.info("jwtHeader : "+jwtHeader);
 
 		// header가 있는지 확인
 		if(jwtHeader == null || !jwtHeader.startsWith("Bearer")) {
@@ -53,7 +56,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter{
 
 		// 서명이 정상적으로 되었다면
 		if(username != null) {	
-			System.out.println("username 정상=============");
+			log.info("username 정상=============");
 			User user = userRepository.findByusername(username);
 
 			// 인증은 토큰 검증시 끝. 인증을 하기 위해서가 아닌 스프링 시큐리티가 수행해주는 권한 처리를 위해 

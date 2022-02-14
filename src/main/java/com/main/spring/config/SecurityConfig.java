@@ -12,7 +12,6 @@ import org.springframework.web.filter.CorsFilter;
 
 import com.main.spring.config.filter.JwtAuthenticationFilter;
 import com.main.spring.config.filter.JwtAuthorizationFilter;
-import com.main.spring.config.oauth.PrincipalOauth2UserService;
 import com.main.spring.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -30,8 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final UserRepository userRepository;
 	
-	private final PrincipalOauth2UserService pOauth2UserService;
-
 	private final CorsFilter corsFilter;
     @Bean
     // class : BCryptPasswordEncoder 비밀번호를 암호화 하는 메서드
@@ -55,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// admin에 대한 요청은 전부, role이 ADMIN인 유저만이 사용가능하다.
 			// 인증이 안될경우 403 에러가 뜸
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-			.anyRequest().permitAll()		// 나머지 경로는 다른 요청 전부 허용
+			.anyRequest().permitAll();		// 나머지 경로는 다른 요청 전부 허용
 			
 		/*	// 로그인 페이지 꾸며서 사용할 수 있게 해줌
 			.and()
@@ -66,12 +63,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			// 로그인 성공시 이동할 페이지, 너가 /admin 으로 이동을 했는데 로그인 페이지가 떴어? 그리고나서 로그인을 하고나면 /로 가는게 아니라 자동으로 너가 가려했던 /admin으로 들어가짐 
 			.defaultSuccessUrl("/")
 		
-		*/
 			//oauth 로 구글 로그인 실행
 			.and()
 			.oauth2Login()
 			.userInfoEndpoint()
 			.userService(pOauth2UserService);
-		
+		*/
     }
 }

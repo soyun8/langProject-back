@@ -2,33 +2,33 @@ package com.main.spring.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.main.spring.domain.User;
 
 import lombok.Data;
 
 @Data
-public class PrincipalDetails implements UserDetails, OAuth2User {
+public class PrincipalDetails implements UserDetails{
 
     private User user;
-    private Map<String, Object> attributes;
+    // private Map<String, Object> attributes;
 
     // 생성자 만들기
     public PrincipalDetails(User user) {
         this.user = user;
     }
     
+    /*
     // oauth 로그인 시 사용
  	public PrincipalDetails(User user, Map<String,Object> attributes) {
  		this.user = user;
  		this.attributes = attributes;
  	}
-
+ 	*/
+    
     /**
 	 * 시큐리티가 /login 주소 요청 시 낚아채서 로그인을 진행시킨다.
 	 * 
@@ -76,14 +76,4 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     public boolean isEnabled() {			// isEnabled : 계정의 활성화 여부 ( ture면 활성화 o )
         return true;
     }
-
-	@Override
-	public Map<String, Object> getAttributes() {
-		return attributes;
-	}
-
-	@Override
-	public String getName() {
-		return null;
-	}
 }
